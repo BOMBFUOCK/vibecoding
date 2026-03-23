@@ -1,8 +1,8 @@
 # AI 邮箱客户端 — 产品设计规格文档
 
-**版本**: 1.0  
+**版本**: 2.0  
 **日期**: 2025-03-23  
-**状态**: 待评审  
+**状态**: 已确认（评审后修订）  
 **作者**: AI 辅助设计  
 
 ---
@@ -22,12 +22,12 @@
 |------|------|--------|
 | 多邮箱聚合 | 支持 IMAP/SMTP 协议，绑定所有标准邮箱 | P0 |
 | AI 邮件摘要 | 自动生成每封邮件的核心内容摘要 | P0 |
-| AI 分类处理 | 自动分类：重要/普通/促销/社交，退订管理 | P0 |
 | AI 起草回复 | 一键生成回复草稿，用户修改后发送 | P0 |
-| 日程提取 | 自动识别邮件中的日程信息，添加到日历 | P1 |
 | 模糊语义搜索 | 支持自然语言搜索，如"和老板讨论的预算" | P0 |
 | 关键词搜索 | 传统关键词、短语、日期搜索 | P0 |
 | Hybrid 搜索 | 结合语义和关键词的混合搜索 | P0 |
+| 邮件发送 | SMTP 发送邮件，支持草稿保存 | P1 |
+| 附件支持 | 邮件附件查看和下载 | P1 |
 
 ---
 
@@ -43,13 +43,12 @@
                     │
 ┌─────────────────────────────────────────────┐
 │               AI 能力层                      │
-│  总结  │  分类  │  起草回复  │  日程提取  │
-│  Core ML（轻量）  │  云端 API（重量）        │
+│  总结（云端 GPT-4o mini）  │  起草回复（云端）│
 └─────────────────────────────────────────────┘
                     │
 ┌─────────────────────────────────────────────┐
 │              邮件同步层                      │
-│       IMAP/SMTP 协议适配器                   │
+│       自定义 IMAP/SMTP 协议实现              │
 │       （支持所有标准邮箱）                    │
 └─────────────────────────────────────────────┘
                     │
@@ -77,16 +76,7 @@
     │
     ▼
 ┌───────────────────────────────────────┐
-│  Step 1: 本地预处理（Core ML）         │
-│  - 垃圾邮件分类                        │
-│  - 优先级判断（重要/普通/促销）         │
-│  - 自动打标签（工作/个人/订单）         │
-│  耗时：< 100ms                         │
-└───────────────────────────────────────┘
-    │
-    ▼
-┌───────────────────────────────────────┐
-│  Step 2: 本地语义索引（FAISS）          │
+│  Step 1: 本地语义索引（FAISS）          │
 │  - 生成邮件内容向量                     │
 │  - 存入本地向量数据库                  │
 │  - 用于模糊语义搜索                     │
@@ -94,17 +84,15 @@
     │
     ▼
 ┌───────────────────────────────────────┐
-│  Step 3: 云端深度处理（GPT-4o mini）    │
+│  Step 2: 云端深度处理（GPT-4o mini）    │
 │  - 邮件摘要生成（英文/中文）            │
-│  - Action Items 提取                  │
-│  - 日程信息识别 → 日历事件             │
+│  - AI 回复草稿生成                     │
 │  耗时：500-2000ms                     │
 └───────────────────────────────────────┘
     │
     ▼
 ┌───────────────────────────────────────┐
-│  Step 4: 用户可见呈现                   │
-│  - 收件箱分类展示                      │
+│  Step 3: 用户可见呈现                   │
 │  - 邮件摘要预览                        │
 │  - AI 回复建议按钮                     │
 └───────────────────────────────────────┘
@@ -148,22 +136,23 @@
 |------|---------|------|
 | 语言 | Swift | 5.9+ |
 | UI 框架 | SwiftUI + UIKit 混编 | iOS 17+ |
-| 邮件协议 | MailCore2 | Latest |
+| 邮件协议 | 自定义 IMAP/SMTP 实现 | v1.0 |
 | 本地数据库 | SQLite.swift | Latest |
-| 全文搜索 | SQLite FTS5 | 内置 |
-| 向量存储 | FAISS | Latest |
-| 本地 AI | Core ML + Apple On-Device | iOS 17+ |
+| 全文搜索 | SQLite FTS5 + ICU 中文分词 | 内置 |
+| 向量存储 | FAISS (via swift-faiss wrapper) | Latest |
+| Embedding | OpenAI text-embedding-3-small API | Latest |
 | 云端 AI | OpenAI API (GPT-4o mini) | Latest |
-| 网络层 | Alamofire | Latest |
+| 网络层 | URLSession (原生) | - |
 | 依赖管理 | Swift Package Manager | - |
 
-### 3.2 后端服务
+### 3.2 本地存储（无后端）
 
 | 模块 | 技术选型 | 用途 |
 |------|---------|------|
-| 框架 | FastAPI | AI API 代理、用户认证 |
-| 云端向量库 | Qdrant Cloud | 邮件量大时的向量存储 |
-| 用户认证 | Firebase Auth | 邮箱/Google/Apple 登录 |
+| 邮件缓存 | SQLite | 结构化存储邮件 |
+| 向量索引 | FAISS | 语义搜索 |
+| 凭证存储 | iOS Keychain | IMAP/SMTP 密码安全存储 |
+| 用户偏好 | UserDefaults | 非敏感设置 |
 
 ---
 
@@ -183,24 +172,29 @@ AIEmail/
 │   │   ├── Views/
 │   │   ├── ViewModels/
 │   │   └── Models/
+│   ├── Compose/              # 撰写邮件模块
+│   │   ├── Views/
+│   │   └── ViewModels/
 │   ├── AIAssistant/          # AI 功能模块
 │   │   ├── Summary/
-│   │   ├── Reply/
-│   │   └── Calendar/
+│   │   └── Reply/
 │   └── Search/              # 搜索模块
 │       ├── Views/
 │       └── ViewModels/
 ├── Core/
-│   ├── Email/               # 邮件协议层
-│   │   ├── IMAPClient.swift
-│   │   ├── SMTPClient.swift
-│   │   └── MailCore2Adapter.swift
+│   ├── Email/               # 邮件协议层（自定义实现）
+│   │   ├── IMAP/
+│   │   │   ├── IMAPClient.swift
+│   │   │   ├── IMAPCommand.swift
+│   │   │   └── IMAPResponseParser.swift
+│   │   └── SMTP/
+│   │       ├── SMTPClient.swift
+│   │       ├── SMTPCommand.swift
+│   │       └── SMTPResponseParser.swift
 │   ├── AI/                  # AI 能力层
-│   │   ├── Local/
-│   │   │   ├── CoreMLClassifier.swift
-│   │   │   └── EmbeddingGenerator.swift
-│   │   └── Cloud/
-│   │       └── OpenAIClient.swift
+│   │   ├── OpenAIClient.swift
+│   │   ├── EmbeddingService.swift
+│   │   └── AIServiceCoordinator.swift
 │   └── Search/              # 搜索层
 │       ├── FullTextSearch.swift
 │       ├── SemanticSearch.swift
@@ -217,7 +211,7 @@ AIEmail/
 │       └── CredentialStore.swift
 ├── Services/
 │   ├── MailSyncService.swift
-│   └── AIServiceCoordinator.swift
+│   └── AccountManager.swift
 └── Resources/
     ├── Assets.xcassets
     └── Localizable.strings
@@ -267,10 +261,10 @@ AIEmail/
 用户添加邮箱账号
     │
     ▼
-IMAP 凭证安全存储（Keychain）
+IMAP/SMTP 凭证安全存储（Keychain）
     │
     ▼
-MailCore2 连接邮箱服务器
+自定义 IMAP 客户端连接邮箱服务器
     │
     ▼
 抓取邮件头（From/Subject/Date）→ 展示列表
@@ -291,21 +285,16 @@ MailCore2 连接邮箱服务器
 邮件入库
     │
     ▼
-Core ML 分类（< 100ms，本地）
-    │
-    ├── 是垃圾邮件 → 标记，归档
-    ├── 促销邮件 → 标记，归档
-    └── 正常邮件 → 继续
+生成 Embedding（调用 OpenAI Embedding API）
     │
     ▼
-生成 Embedding → 存入 FAISS
+存入 FAISS 向量数据库
     │
     ▼
 发送云端 API 请求（GPT-4o mini）
     │
     ├── 摘要
-    ├── Action Items
-    └── 日程信息
+    └── 回复草稿
     │
     ▼
 存储结果，更新 UI
@@ -317,11 +306,11 @@ Core ML 分类（< 100ms，本地）
 
 | 方面 | 实现 |
 |------|------|
-| 凭证存储 | iOS Keychain，生物识别解锁 |
-| 传输加密 | IMAP over TLS / SSL |
-| 本地数据 | SQLite 数据库，本地加密 |
-| 云端 AI | 仅发送必要内容，不存储邮件内容 |
-| 隐私政策 | 不收集、不分享用户邮件数据 |
+| 凭证存储 | iOS Keychain，生物识别解锁，无后端存储 |
+| 传输加密 | IMAP over TLS / SSL，SMTP over TLS |
+| 本地数据 | SQLite 数据库存储在 App Sandbox 内 |
+| 云端 AI | 仅发送邮件文本内容用于摘要生成，不持久化 |
+| 隐私政策 | 纯本地存储，无后端服务器，用户数据永不离开设备 |
 
 ---
 
@@ -343,23 +332,23 @@ Core ML 分类（< 100ms，本地）
 ### Sprint 1-2：基础设施
 - 项目搭建，Swift Package 配置
 - SQLite 数据库层
-- IMAP/SMTP 集成（MailCore2）
+- 自定义 IMAP/SMTP 协议实现
 - 邮件列表 UI
 
 ### Sprint 3-4：核心功能
 - 邮件详情页
-- AI 摘要功能（云端 API）
-- 关键词搜索（FTS5）
+- 邮件撰写和发送
+- 附件查看和下载
 
 ### Sprint 5-6：AI 搜索
+- OpenAI API 集成（摘要 + 起草回复）
 - FAISS 向量索引
-- Embedding 生成
-- Hybrid 搜索合并
+- Embedding 生成（text-embedding-3-small）
+- 关键词搜索（FTS5 + ICU 中文分词）
 
-### Sprint 7-8：AI 处理
-- Core ML 分类模型
-- AI 起草回复
-- 日程提取
+### Sprint 7-8：Hybrid 搜索
+- Hybrid 搜索合并
+- 模糊语义搜索
 
 ### Sprint 9-10：完善
 - UI 优化
@@ -372,11 +361,11 @@ Core ML 分类（< 100ms，本地）
 
 | 风险 | 影响 | 对策 |
 |------|------|------|
-| MailCore2 维护状态 | 库停止更新 | 考虑切换到 Custom IMAP 实现 |
-| 云端 AI 成本 | 按 token 计费 | 本地处理简单任务，限制 API 调用 |
-| 邮件隐私 | 用户敏感数据 | 明确隐私政策，最小化数据发送 |
-| iOS 推送通知 | 实时性要求 | 本地通知 + 后台刷新 |
-| 中文分词 | FTS5 中文支持 | 使用 ICU 中文分词器 |
+| 自定义 IMAP/SMTP 实现 | 协议复杂，可能有兼容性问题 | 参考 RFC 文档，使用主流邮箱测试（Gmail, QQ, Outlook） |
+| 云端 AI 成本 | 按 token 计费 | 使用 GPT-4o mini（低成本），缓存摘要结果 |
+| FAISS iOS 集成 | 非原生库，集成难度 | 使用预编译 FAISS 或替代方案（本地 SQLite 模拟向量） |
+| 中文分词 | FTS5 中文支持 | 使用 SQLite FTS5 Unicode61 或 ICU 分词器 |
+| 邮件附件大 | 占用本地存储 | 仅缓存缩略图，按需下载完整附件 |
 
 ---
 
@@ -389,5 +378,11 @@ Core ML 分类（< 100ms，本地）
 
 ---
 
-**评审状态**：待评审  
-**下一步**：提交 spec-document-reviewer 评审 → 用户确认 → 编写实现计划
+**评审状态**：已确认（v2.0 根据评审意见修订）  
+**决策记录**：
+- IMAP/SMTP：自定义实现
+- Core ML：暂时不做，专注摘要和搜索
+- 后端：完全去掉，纯本地存储
+- 认证：纯本地，无第三方服务
+
+**下一步**：创建实现计划 → 并行开发
