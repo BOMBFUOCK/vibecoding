@@ -1,0 +1,82 @@
+{
+  "": {
+    "swift-dependencies": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/master.swiftdeps"
+  },
+  "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/Sources/CLI/Commands/AICommand.swift": {
+    "dependencies": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/AICommand.d",
+    "object": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/AICommand.swift.o",
+    "swiftmodule": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/AICommand~partial.swiftmodule",
+    "swift-dependencies": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/AICommand.swiftdeps",
+    "diagnostics": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/AICommand.dia"
+  },
+  "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/Sources/CLI/Commands/AccountCommand.swift": {
+    "dependencies": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/AccountCommand.d",
+    "object": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/AccountCommand.swift.o",
+    "swiftmodule": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/AccountCommand~partial.swiftmodule",
+    "swift-dependencies": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/AccountCommand.swiftdeps",
+    "diagnostics": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/AccountCommand.dia"
+  },
+  "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/Sources/CLI/Commands/MailCommand.swift": {
+    "dependencies": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/MailCommand.d",
+    "object": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/MailCommand.swift.o",
+    "swiftmodule": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/MailCommand~partial.swiftmodule",
+    "swift-dependencies": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/MailCommand.swiftdeps",
+    "diagnostics": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/MailCommand.dia"
+  },
+  "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/Sources/CLI/Commands/SearchCommand.swift": {
+    "dependencies": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/SearchCommand.d",
+    "object": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/SearchCommand.swift.o",
+    "swiftmodule": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/SearchCommand~partial.swiftmodule",
+    "swift-dependencies": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/SearchCommand.swiftdeps",
+    "diagnostics": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/SearchCommand.dia"
+  },
+  "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/Sources/CLI/Models/Models.swift": {
+    "dependencies": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/Models.d",
+    "object": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/Models.swift.o",
+    "swiftmodule": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/Models~partial.swiftmodule",
+    "swift-dependencies": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/Models.swiftdeps",
+    "diagnostics": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/Models.dia"
+  },
+  "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/Sources/CLI/Services/AIService.swift": {
+    "dependencies": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/AIService.d",
+    "object": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/AIService.swift.o",
+    "swiftmodule": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/AIService~partial.swiftmodule",
+    "swift-dependencies": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/AIService.swiftdeps",
+    "diagnostics": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/AIService.dia"
+  },
+  "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/Sources/CLI/Services/DatabaseService.swift": {
+    "dependencies": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/DatabaseService.d",
+    "object": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/DatabaseService.swift.o",
+    "swiftmodule": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/DatabaseService~partial.swiftmodule",
+    "swift-dependencies": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/DatabaseService.swiftdeps",
+    "diagnostics": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/DatabaseService.dia"
+  },
+  "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/Sources/CLI/Services/IMAPService.swift": {
+    "dependencies": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/IMAPService.d",
+    "object": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/IMAPService.swift.o",
+    "swiftmodule": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/IMAPService~partial.swiftmodule",
+    "swift-dependencies": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/IMAPService.swiftdeps",
+    "diagnostics": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/IMAPService.dia"
+  },
+  "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/Sources/CLI/Services/SMTPService.swift": {
+    "dependencies": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/SMTPService.d",
+    "object": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/SMTPService.swift.o",
+    "swiftmodule": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/SMTPService~partial.swiftmodule",
+    "swift-dependencies": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/SMTPService.swiftdeps",
+    "diagnostics": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/SMTPService.dia"
+  },
+  "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/Sources/CLI/Utils/Printer.swift": {
+    "dependencies": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/Printer.d",
+    "object": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/Printer.swift.o",
+    "swiftmodule": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/Printer~partial.swiftmodule",
+    "swift-dependencies": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/Printer.swiftdeps",
+    "diagnostics": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/Printer.dia"
+  },
+  "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/Sources/CLI/main.swift": {
+    "dependencies": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/main.d",
+    "object": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/main.swift.o",
+    "swiftmodule": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/main~partial.swiftmodule",
+    "swift-dependencies": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/main.swiftdeps",
+    "diagnostics": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/cli.build/main.dia"
+  }
+}

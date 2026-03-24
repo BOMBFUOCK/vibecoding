@@ -1,0 +1,11 @@
+/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/Sources/CLI/Commands/AICommand.swift
+/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/Sources/CLI/Commands/AccountCommand.swift
+/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/Sources/CLI/Commands/MailCommand.swift
+/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/Sources/CLI/Commands/SearchCommand.swift
+/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/Sources/CLI/Models/Models.swift
+/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/Sources/CLI/Services/AIService.swift
+/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/Sources/CLI/Services/DatabaseService.swift
+/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/Sources/CLI/Services/IMAPService.swift
+/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/Sources/CLI/Services/SMTPService.swift
+/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/Sources/CLI/Utils/Printer.swift
+/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/Sources/CLI/main.swift

@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/CLITests.build/master.swiftdeps"
+  },
+  "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/Tests/CLI/CLITests.swift": {
+    "dependencies": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/CLITests.build/CLITests.d",
+    "object": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/CLITests.build/CLITests.swift.o",
+    "swiftmodule": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/CLITests.build/CLITests~partial.swiftmodule",
+    "swift-dependencies": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/CLITests.build/CLITests.swiftdeps",
+    "diagnostics": "/Users/yaokaidi/Desktop/vibecoding/AIEmailCLI/.build/index-build/arm64-apple-macosx/debug/CLITests.build/CLITests.dia"
+  }
+}
