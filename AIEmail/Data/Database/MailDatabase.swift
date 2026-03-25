@@ -108,17 +108,81 @@ final class MailDatabase {
     
     // MARK: - FTS Operations
     
+    private var ftsIndex: [String: FTSDocument] = [:]
+    
+    struct FTSDocument {
+        let emailID: String
+        let subject: String
+        let body: String
+        let sender: String
+        let recipient: String
+    }
+    
     func rebuildFTSIndex() throws {
+        ftsIndex.removeAll()
+        for email in emails {
+            let doc = FTSDocument(
+                emailID: email.id,
+                subject: email.subject ?? "",
+                body: email.textBody ?? "",
+                sender: email.from,
+                recipient: email.to.joined(separator: ",")
+            )
+            ftsIndex[email.id] = doc
+        }
     }
     
     func updateFTSDocument(emailID: String, subject: String, body: String, from: String, to: String) throws {
+        if let email = emails.first(where: { $0.id == emailID }) {
+            let doc = FTSDocument(
+                emailID: emailID,
+                subject: subject,
+                body: body,
+                sender: from,
+                recipient: to
+            )
+            ftsIndex[emailID] = doc
+        }
     }
     
     func deleteFTSDocument(emailID: String) throws {
+        ftsIndex.removeValue(forKey: emailID)
     }
     
     func searchFTS(query: String, limit: Int = 50) throws -> [String] {
-        return []
+        let terms = query.lowercased().components(separatedBy: .whitespacesAndNewlines).filter { !$0.isEmpty }
+        guard !terms.isEmpty else { return [] }
+        
+        var scoredResults: [(emailID: String, score: Int)] = []
+        
+        for (emailID, doc) in ftsIndex {
+            var score = 0
+            let searchableText = "\(doc.subject) \(doc.body) \(doc.sender) \(doc.recipient)".lowercased()
+            
+            for term in terms {
+                if doc.subject.lowercased().contains(term) {
+                    score += 10
+                }
+                if doc.body.lowercased().contains(term) {
+                    score += 5
+                }
+                if doc.sender.lowercased().contains(term) {
+                    score += 3
+                }
+                if searchableText.contains(term) {
+                    score += 1
+                }
+            }
+            
+            if score > 0 {
+                scoredResults.append((emailID, score))
+            }
+        }
+        
+        return scoredResults
+            .sorted { $0.score > $1.score }
+            .prefix(limit)
+            .map { $0.emailID }
     }
     
     // MARK: - AI Processing

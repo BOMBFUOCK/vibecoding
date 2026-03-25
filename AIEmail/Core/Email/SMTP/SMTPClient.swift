@@ -218,7 +218,7 @@ final class SMTPClient: Sendable {
     }
     
     private func performSTARTTLS() async throws {
-        try await sendCommand(.help("STARTTLS"))
+        try await sendCommand(.starttls)
         
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
             guard let input = inputStream, let output = outputStream else {
@@ -227,7 +227,7 @@ final class SMTPClient: Sendable {
             }
             
             let sslSettings: [String: Any] = [
-                kCFStreamSSLLevel as String: "kCFStreamSocketSecurityLevelTLSv1_2"
+                kCFStreamSSLLevel as String: kCFStreamSocketSecurityLevelNegotiatedSSL as String
             ]
             
             input.setProperty(sslSettings, forKey: kCFStreamPropertySSLSettings as Stream.PropertyKey)

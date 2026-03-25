@@ -217,7 +217,7 @@ final class OpenAIClient: Sendable {
             throw AIError.missingAPIKey
         }
         
-        if let key = cacheKey, let cached = cache.object(forKey: key as NSString) {
+        if let key = cacheKey, let cached = cache.object(forKey: key as NSString), !cached.isExpired {
             return cached.data
         }
         

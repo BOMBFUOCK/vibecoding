@@ -10,9 +10,15 @@ struct AIEmailApp: App {
 }
 
 struct ContentView: View {
+    @State private var hasCompletedOnboarding = UserDefaults.standard.bool(forKey: "hasCompletedOnboarding")
+    
     var body: some View {
         NavigationStack {
-            MailboxView()
+            if hasCompletedOnboarding {
+                MailboxView()
+            } else {
+                WelcomeView()
+            }
         }
     }
 }

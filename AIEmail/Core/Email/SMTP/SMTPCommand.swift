@@ -16,6 +16,7 @@ enum SMTPCommand: Sendable {
     case vrfy(String)
     case expn(String)
     case help(String?)
+    case starttls
     case noop
     case quit
     
@@ -57,6 +58,8 @@ enum SMTPCommand: Sendable {
                 return Array("HELP \(arg)\r\n".utf8)
             }
             return Array("HELP\r\n".utf8)
+        case .starttls:
+            return Array("STARTTLS\r\n".utf8)
         case .noop:
             return Array("NOOP\r\n".utf8)
         case .quit:

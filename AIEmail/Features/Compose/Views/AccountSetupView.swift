@@ -68,6 +68,8 @@ struct AccountSetupView: View {
             do {
                 try await Task.sleep(nanoseconds: 1_000_000_000)
                 
+                UserDefaults.standard.set(true, forKey: "hasCompletedOnboarding")
+                
                 DispatchQueue.main.async {
                     isLoading = false
                     dismiss()

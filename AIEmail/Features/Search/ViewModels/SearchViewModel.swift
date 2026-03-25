@@ -95,12 +95,26 @@ class SearchViewModel {
         errorMessage = nil
         
         do {
-            let aiCoordinator = AIServiceCoordinator()
-            let embedding = try await aiCoordinator.embedOnly(query)
+            let emailIDs = try mailDatabase.searchFTS(query: query, limit: 50)
             
-            results = []
+            var searchResults: [SearchResult] = []
+            for emailID in emailIDs {
+                if let email = try mailDatabase.getEmail(id: emailID) {
+                    let result = SearchResult(
+                        id: email.id,
+                        email: email,
+                        matchedField: .body,
+                        snippet: email.preview ?? "",
+                        rank: 1.0
+                    )
+                    searchResults.append(result)
+                }
+            }
+            
+            results = searchResults
         } catch {
             errorMessage = error.localizedDescription
+            results = []
         }
         
         isSearching = false

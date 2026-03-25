@@ -45,9 +45,9 @@ struct MailboxView: View {
                     }
                     
                     Button {
-                        
+                        showCompose = true
                     } label: {
-                        Image(systemName: "gear")
+                        Image(systemName: "square.and.pencil")
                     }
                 }
                 .foregroundStyle(AppColors.accent)
